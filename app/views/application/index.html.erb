@@ -1,0 +1,52 @@
+<h1>Welcome to the index page!</h1>
+
+<!-- Start Registration Form -->
+<fieldset class="reg">
+  <legend>Register</legend>
+  <form action="/users" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>First Name</label>
+    <div>
+      <input type="text" name="user[first_name]">
+    </div>
+
+    <label>Last Name</label>
+    <div>
+      <input type="text" name="user[last_name]">
+    </div>
+
+    <label>Email</label>
+    <div>
+      <input type="email" name="user[email]">
+    </div>
+
+    <label>Password</label>
+    <div>
+      <input type="password" name="user[password]">
+    </div>
+    <input type="submit" value="Register">
+  </form>
+</fieldset>
+<!-- End Registration Form -->
+
+<!-- Start Login Form -->
+<fieldset class="reg">
+  <legend>Login</legend>
+  <form action="/login" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>Email</label>
+    <div>
+      <input type="email" name="email">
+    </div>
+
+    <label>Password</label>
+    <div>
+      <input type="password" name="password">
+    </div>
+
+    <input type="submit" value="Login">
+  </form>
+</fieldset>
+<!-- End Login Form -->

@@ -1,0 +1,31 @@
+<h1 id="welcome">Hi <%= current_user.first_name.titleize %></h1>
+<a href="/users/<%= current_user.id %>">Go to Dashboard</a>
+<a href="/logout" data-method="delete">Log Out</a>
+
+<!-- Start All Products Table -->
+<h3 class="center">All Products</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Seller</th>
+      <th>Date Posted</th>
+      <th>Amount</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shoes.each do |shoe| %>
+    <tr>
+      <td><%= shoe.name %></td>
+      <td><%= shoe.seller.first_name.titleize %> <%= shoe.seller.last_name.titleize %></td>
+      <td><%= shoe.created_at.strftime("%B %d, %Y") %></td>
+      <td>$<%= shoe.price %></td>
+      <% unless current_user == shoe.seller %>
+        <td><a href="/shoes/<%= shoe.id %>" data-method='put'>Buy</a></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- End All Products Table -->

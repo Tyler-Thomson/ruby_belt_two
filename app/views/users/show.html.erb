@@ -1,0 +1,97 @@
+<h1 id="welcome">Hi <%= current_user.first_name.titleize %></h1>
+<a href="/shoes">Go to All Products</a>
+<a href="/logout" data-method="delete">Log Out</a>
+
+<!-- Start Sell Form -->
+<fieldset class="reg">
+  <legend>Sell Product</legend>
+  <form action="/shoes" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>Name</label>
+    <div>
+      <input type="text" name="shoe[name]">
+    </div>
+
+    <label>Amount</label>
+    <div>
+      <input type="text" name="shoe[price]">
+    </div>
+    <input type="submit" value="Sell">
+  </form>
+</fieldset>
+<!-- End Sell Form -->
+
+<!-- Start To-Sell Table -->
+<h3>Your products that are not yet sold</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Date Posted</th>
+      <th>Amount</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @to_sell.each do |s| %>
+    <tr>
+      <td><%= s.name.titleize %></td>
+      <td><%= s.created_at.strftime("%B %d, %Y") %></td>
+      <td>$<%= s.price %></td>
+      <td><a href="/shoes/<%= s.id %>" data-method="delete">Remove</a></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<!-- End To-Sell Table -->
+
+<!-- Start Sold Table -->
+<h3>Sales</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Date Bought</th>
+      <th>Buyer</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sold.each do |s| %>
+    <tr>
+      <td><%= s.name.titleize %></td>
+      <td><%= s.updated_at.strftime("%B %d, %Y") %></td>
+      <td><%= s.buyer.first_name.titleize %><%= s.buyer.last_name.titleize %></td>
+      <td>$<%= s.price %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<h5 class="total">Total: <%= @total_sold %></h5>
+<!-- End Sold Table -->
+
+<!-- Start Bought Table -->
+<h3>Purchases</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Date Bought</th>
+      <th>Seller</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bought.each do |b| %>
+    <tr>
+      <td><%= b.name.titleize %></td>
+      <td><%= b.updated_at.strftime("%B %d, %Y") %></td>
+      <td><%= b.seller.first_name.titleize %> <%= b.seller.last_name.titleize %></td>
+      <td>$<%= b.price %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<h5 class="total">Total: <%= @total_bought %></h5>
+<!-- End Bought Table -->
